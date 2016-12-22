@@ -24,7 +24,7 @@
 
 二进制基数就是2，八进制基数就是8
 大于10的基数当单个数字超过9的时候会用其他符号表示，">
-<meta property="og:updated_time" content="2016-12-22T07:25:45.398Z">
+<meta property="og:updated_time" content="2016-12-22T11:58:22.205Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="数制">
 <meta name="twitter:description" content="数制数制是用一组固定的数宇和一套统一的规则来表示数的方祛。数值的计算一般都是近位计算。按照进位的规则进行计数的数制，称为进位计数制。常见的进位计数制有二进制，八进制，十六进制，十进制就是我们生活当中通用的数制，满十进一
@@ -192,9 +192,11 @@
 </ul>
 <p>2.十进制转其他进制的算法：数值除以基数，取商直到比基数小，再倒取余数</p>
 <ul>
-<li><p>十进制32转二进制：<br><pre>33/2=16……1<br>16/2=8……0<br>8/2=4……0<br>4/2=2……0<br>2/2=1……0</pre><br>倒取余数后二进制的33就表示为100001  </p>
+<li><p>十进制33转二进制：<br><pre>33/2=16……1<br>16/2=8……0<br>8/2=4……0<br>4/2=2……0<br>2/2=1……0</pre><br>倒取余数后二进制的33就表示为100001  </p>
 </li>
 <li><p>同理十进制674转八进制：<br><pre>674/8=84……2<br>84/8=10……4<br>10/8=1……2<br></pre><br>倒取余数后八进制的674就表示为1242</p>
+</li>
+<li><p>十进制685转十六进制:（商）+基数<em>小数<br><pre>685/16=42.8125<br>42/16=2.625<br></pre><br>（2）+（0.625</em>16）+（0.8125*16）=2 + 10(a) +13(d)<br>   所以最后转换的十六进制就为2ad</p>
 </li>
 </ul>
 
@@ -253,6 +255,27 @@
 
 
 
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="numerical-system" data-title="数制" data-url="http://yoursite.com/2016/12/14/numerical-system/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"hazlank"};
+	(function() {
+
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
 
 
 
