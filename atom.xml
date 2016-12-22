@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-12-22T07:05:35.860Z</updated>
+  <updated>2016-12-22T07:25:45.398Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://yoursite.com/2016/12/14/numerical-system/"/>
     <id>http://yoursite.com/2016/12/14/numerical-system/</id>
     <published>2016-12-14T02:38:16.000Z</published>
-    <updated>2016-12-22T07:05:35.860Z</updated>
+    <updated>2016-12-22T07:25:45.398Z</updated>
     
     <content type="html"><![CDATA[<h1 id="数制"><a href="#数制" class="headerlink" title="数制"></a>数制</h1><p>数制是用一组固定的数宇和一套统一的规则来表示数的方祛。数值的计算一般都是近位计算。按照进位的规则进行计数的数制，称为进位计数制。常见的进位计数制有二进制，八进制，十六进制，十进制就是我们生活当中通用的数制，满十进一</p>
 <p><strong>进位计数制有两个基本要素：基数和权。</strong></p>
@@ -44,9 +44,9 @@
 </ul>
 <p>2.十进制转其他进制的算法：数值除以基数，取商直到比基数小，再倒取余数</p>
 <ul>
-<li><p>十进制32转二进制：<br><pre>33/2=16…..1<br>16/2=8……0<br>8/2=4…….0<br>4/2=2…….0<br>2/2=1…….0</pre><br>倒取余数后二进制的33就表示为100001  </p>
+<li><p>十进制32转二进制：<br><pre>33/2=16……1<br>16/2=8……0<br>8/2=4……0<br>4/2=2……0<br>2/2=1……0</pre><br>倒取余数后二进制的33就表示为100001  </p>
 </li>
-<li><p>同理十进制674转八进制：<br><pre>674/8=84…..2<br>84/8=10……4<br>10/8=1…….2<br></pre><br>倒取余数后八进制的674就表示为1242</p>
+<li><p>同理十进制674转八进制：<br><pre>674/8=84……2<br>84/8=10……4<br>10/8=1……2<br></pre><br>倒取余数后八进制的674就表示为1242</p>
 </li>
 </ul>
 ]]></content>
@@ -58,9 +58,9 @@
     </summary>
     
     
-      <category term="计算机原理" scheme="http://yoursite.com/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8E%9F%E7%90%86/"/>
-    
       <category term="数值" scheme="http://yoursite.com/tags/%E6%95%B0%E5%80%BC/"/>
+    
+      <category term="计算机原理" scheme="http://yoursite.com/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8E%9F%E7%90%86/"/>
     
   </entry>
   
