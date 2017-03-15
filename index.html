@@ -152,12 +152,11 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>#Reflow和Repaint的基本认识</p>
-<p>重绘(repaints)是一个元素外观的改变所触发的浏览器行为，例如改变vidibility，color等，重绘并不一定会导致回流</p>
+        <h1 id="Reflow和Repaint的基本认识"><a href="#Reflow和Repaint的基本认识" class="headerlink" title="Reflow和Repaint的基本认识"></a>Reflow和Repaint的基本认识</h1><p>重绘(repaints)是一个元素外观的改变所触发的浏览器行为，例如改变vidibility，color等，重绘并不一定会导致回流</p>
 <p>回流(reflow) 指的就是浏览器为了重新渲染部分或者全部文档而重新计算元素的位置和几何结构过程，就比如砍掉某节点元素或者改变位置或者大小也可能会造成父级元素以及子元素也产生回流</p>
 <p>重绘的代价是高昂的，因为浏览器必须验证DOM树上其他节点元素的可见性，回流更是性能的关键，某一块元素的变化可能会造成部分区域或者整个页面的布局发生变化</p>
 <p>所以我们在写js或者css的时候需要尽量把回流对性能的影响降到最低 </p>
-<p>###dom优化<br>1.在修改元素样式的时候，通过修改classname名获取样式，也就是多次dom修改合并成一次  </p>
+<h3 id="dom优化"><a href="#dom优化" class="headerlink" title="dom优化"></a>dom优化</h3><p>1.在修改元素样式的时候，通过修改classname名获取样式，也就是多次dom修改合并成一次  </p>
 <pre>dom.style.color='#cccccc';
 dom.style.top='10px';
 
@@ -170,13 +169,10 @@ top:10px;
 } </pre>
 
 <p>我们会用dom碎片进行组合再添加到整个dom上，因为这样仅导致一个回流。所以，style属性设置也一样会导致回流，避免设置多级内联样式。当元素获取外部类的样式时只会产生一次回流。</p>
-<p>2.动画效果的position值为fixed或者absolute<br>动画效果在移动过程不会影响其他元素布局，不会导致其他元素的回流</p>
-<p>3.使用缓存，缓存临时节点，不要每次都去获取</p>
-<p>4.操作dom可以先把dom节点删除或隐藏，隐藏的节点不会重排</p>
-<p>5.批量增加尽量使用innerhtml，多次添加的时候innerhtml要好过appendchild</p>
-<p>6.有些浏览器会对重排做优化，比如等一个线程结束或足够数量的变化发生再进行处理。但浏览器为了得到某些属性值的正确性也会重排,这些属性有：offsetTop、offsetLeft、 offsetWidth、offsetHeight、scrollTop、scrollLeft、scrollWidth、scrollHeight、clientTop、clientLeft、clientWidth、clientHeight。所以多次使用应该使用缓存</p>
-<p>###css优化<br>多写类选择器，通配符不说了，还有那些什么div,span,a…{margin:0;padding:0},先看看user agent stylesheet吧</p>
-
+<p>2.动画效果的position值为fixed或者absolute<br>动画效果在移动过程不会影响其他元素布局，不会导致其他元素的回流<br>
+        <p class="article-more-link">
+          <a class="article-more-a"  href="/2017/03/08/Repaint-and-Reflow/#more">more >></a>
+        </p>
       
     </div>
     <div class="article-info article-info-index">
@@ -187,7 +183,7 @@ top:10px;
       
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端-优化/">-前端 -优化</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/优化/">优化</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>
 	</div>
 
       
@@ -386,7 +382,7 @@ top:10px;
     
     	<section class="tools-section tools-section-tag">
     			<div class="widget tagcloud" id="js-tagcloud">
-    				<a href="/tags/前端-优化/" style="font-size: 10px;">-前端 -优化</a> <a href="/tags/字符编码/" style="font-size: 10px;">字符编码</a> <a href="/tags/数值/" style="font-size: 10px;">数值</a> <a href="/tags/计算机原理/" style="font-size: 20px;">计算机原理</a>
+    				<a href="/tags/优化/" style="font-size: 10px;">优化</a> <a href="/tags/前端/" style="font-size: 10px;">前端</a> <a href="/tags/字符编码/" style="font-size: 10px;">字符编码</a> <a href="/tags/数值/" style="font-size: 10px;">数值</a> <a href="/tags/计算机原理/" style="font-size: 20px;">计算机原理</a>
     			</div>
     	</section>
     
