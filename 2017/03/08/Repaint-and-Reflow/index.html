@@ -6,17 +6,27 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Tag: 数值 | Hazlank blog</title>
+  <title>Repaint-and-Reflow | Hazlank blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="���˲���">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Hazlank blog">
-<meta property="og:url" content="http://yoursite.com/tags/数值/index.html">
+  <meta name="description" content="#Reflow和Repaint的基本认识
+重绘(repaints)是一个元素外观的改变所触发的浏览器行为，例如改变vidibility，color等，重绘并不一定会导致回流
+回流(reflow) 指的就是浏览器为了重新渲染部分或者全部文档而重新计算元素的位置和几何结构过程，就比如砍掉某节点元素或者改变位置或者大小也可能会造成父级元素以及子元素也产生回流
+重绘的代价是高昂的，因为浏览器必须验证DOM">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Repaint-and-Reflow">
+<meta property="og:url" content="http://yoursite.com/2017/03/08/Repaint-and-Reflow/index.html">
 <meta property="og:site_name" content="Hazlank blog">
-<meta property="og:description" content="���˲���">
+<meta property="og:description" content="#Reflow和Repaint的基本认识
+重绘(repaints)是一个元素外观的改变所触发的浏览器行为，例如改变vidibility，color等，重绘并不一定会导致回流
+回流(reflow) 指的就是浏览器为了重新渲染部分或者全部文档而重新计算元素的位置和几何结构过程，就比如砍掉某节点元素或者改变位置或者大小也可能会造成父级元素以及子元素也产生回流
+重绘的代价是高昂的，因为浏览器必须验证DOM">
+<meta property="og:updated_time" content="2017-03-15T02:43:35.679Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hazlank blog">
-<meta name="twitter:description" content="���˲���">
+<meta name="twitter:title" content="Repaint-and-Reflow">
+<meta name="twitter:description" content="#Reflow和Repaint的基本认识
+重绘(repaints)是一个元素外观的改变所触发的浏览器行为，例如改变vidibility，color等，重绘并不一定会导致回流
+回流(reflow) 指的就是浏览器为了重新渲染部分或者全部文档而重新计算元素的位置和几何结构过程，就比如砍掉某节点元素或者改变位置或者大小也可能会造成父级元素以及子元素也产生回流
+重绘的代价是高昂的，因为浏览器必须验证DOM">
   
     <link rel="alternative" href="/atom.xml" title="Hazlank blog" type="application/atom+xml">
   
@@ -132,54 +142,128 @@
 </nav>
 
       <div class="body-wrap">
+        <article id="post-Repaint-and-Reflow" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
         
   
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2016" class="archive-year">2016</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2016/12/14/numerical-system/" class="archive-article-date">
-  	<time datetime="2016-12-14T02:38:16.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-12-14</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/12/14/numerical-system/">数制</a>
+    <h1 class="article-title" itemprop="name">
+      Repaint-and-Reflow
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>#Reflow和Repaint的基本认识</p>
+<p>重绘(repaints)是一个元素外观的改变所触发的浏览器行为，例如改变vidibility，color等，重绘并不一定会导致回流</p>
+<p>回流(reflow) 指的就是浏览器为了重新渲染部分或者全部文档而重新计算元素的位置和几何结构过程，就比如砍掉某节点元素或者改变位置或者大小也可能会造成父级元素以及子元素也产生回流</p>
+<p>重绘的代价是高昂的，因为浏览器必须验证DOM树上其他节点元素的可见性，回流更是性能的关键，某一块元素的变化可能会造成部分区域或者整个页面的布局发生变化</p>
+<p>所以我们在写js或者css的时候需要尽量把回流对性能的影响降到最低 </p>
+<p>###dom优化<br>1.在修改元素样式的时候，通过修改classname名获取样式，也就是多次dom修改合并成一次  </p>
+<pre>dom.style.color='#cccccc';
+dom.style.top='10px';
+
+////
+
+dom.className='m';
+.m{
+color:#cccccc;
+top:10px;
+} </pre>
+
+<p>我们会用dom碎片进行组合再添加到整个dom上，因为这样仅导致一个回流。所以，style属性设置也一样会导致回流，避免设置多级内联样式。当元素获取外部类的样式时只会产生一次回流。</p>
+<p>2.动画效果的position值为fixed或者absolute<br>动画效果在移动过程不会影响其他元素布局，不会导致其他元素的回流</p>
+<p>3.使用缓存，缓存临时节点，不要每次都去获取</p>
+<p>4.操作dom可以先把dom节点删除或隐藏，隐藏的节点不会重排</p>
+<p>5.批量增加尽量使用innerhtml，多次添加的时候innerhtml要好过appendchild</p>
+<p>6.有些浏览器会对重排做优化，比如等一个线程结束或足够数量的变化发生再进行处理。但浏览器为了得到某些属性值的正确性也会重排,这些属性有：offsetTop、offsetLeft、 offsetWidth、offsetHeight、scrollTop、scrollLeft、scrollWidth、scrollHeight、clientTop、clientLeft、clientWidth、clientHeight。所以多次使用应该使用缓存</p>
+<p>###css优化<br>多写类选择器，通配符不说了，还有那些什么div,span,a…{margin:0;padding:0},先看看user agent stylesheet吧</p>
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2017/03/08/Repaint-and-Reflow/" class="archive-article-date">
+  	<time datetime="2017-03-08T03:15:51.000Z" itemprop="datePublished"><i class="icon-clock"></i>2017-03-08</time>
+</a>
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数值/">数值</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/计算机原理/">计算机原理</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端-优化/">-前端 -优化</a></li></ul>
 	</div>
 
-          
+      
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
-  
-  
-    </div></section>
-  
 
-    
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2016/12/14/numerical-system/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">数制</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">Share to: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+	    <a class="jiathis_button_twitter"></a>
+	    <a class="jiathis_button_plus"></a> 
+	    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="//v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+<div class="duoshuo" >
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="Repaint-and-Reflow" data-title="Repaint-and-Reflow" data-url="http://yoursite.com/2017/03/08/Repaint-and-Reflow/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+
+	var duoshuoQuery = {short_name:"hazlank"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
 
 
       </div>
@@ -202,9 +286,9 @@
 		mathjax: false,
 		animate: true,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		root: "/",
