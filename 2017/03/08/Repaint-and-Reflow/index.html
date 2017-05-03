@@ -18,7 +18,7 @@
 <meta property="og:description" content="Reflow和Repaint的基本认识重绘(repaints)是一个元素外观的改变所触发的浏览器行为，例如改变vidibility，color等，重绘并不一定会导致回流
 回流(reflow) 指的就是浏览器为了重新渲染部分或者全部文档而重新计算元素的位置和几何结构过程，就比如砍掉某节点元素或者改变位置或者大小也可能会造成父级元素以及子元素也产生回流
 重绘的代价是高昂的，因为浏览器必须验证DOM树上">
-<meta property="og:updated_time" content="2017-03-15T03:24:24.581Z">
+<meta property="og:updated_time" content="2017-05-03T07:17:30.458Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Repaint-and-Reflow">
 <meta name="twitter:description" content="Reflow和Repaint的基本认识重绘(repaints)是一个元素外观的改变所触发的浏览器行为，例如改变vidibility，color等，重绘并不一定会导致回流
@@ -179,7 +179,7 @@ top:10px;
 <p>5.批量增加尽量使用innerhtml，多次添加的时候innerhtml要好过appendchild</p>
 <p>6.有些浏览器会对重排做优化，比如等一个线程结束或足够数量的变化发生再进行处理。但浏览器为了得到某些属性值的正确性也会重排,这些属性有：offsetTop、offsetLeft、 offsetWidth、offsetHeight、scrollTop、scrollLeft、scrollWidth、scrollHeight、clientTop、clientLeft、clientWidth、clientHeight。所以多次使用应该使用缓存</p>
 <h3 id="css优化"><a href="#css优化" class="headerlink" title="css优化"></a>css优化</h3><p>多写类选择器，通配符不说了，还有那些什么div,span,a…{margin:0;padding:0},先看看user agent stylesheet吧，叠层也不要太复杂毕竟是从右往左</p>
-<h2 id="后话："><a href="#后话：" class="headerlink" title="后话："></a>后话：</h2><p>dom操作肯定是不可避免的，多注意一些小细节优化吧，js肯定是比dom操作快很多的，列如React的虚拟DOM+优化diff算法。当然浏览器对于dom操作肯定会做优化的，合并批处理什么的</p>
+<h2 id="后话："><a href="#后话：" class="headerlink" title="后话："></a>后话：</h2><p>dom操作肯定是不可避免的，框架本身也避免不了dom操作，只能把代价减低,类似react就是使用v-dom来对dom结构进行比较，修改部分节点，利用已有节点修改有新节点才创建。浏览器对于dom操作肯定会做优化的，合并批处理什么的</p>
 
       
     </div>
