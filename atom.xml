@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-05-03T07:17:30.458Z</updated>
+  <updated>2017-05-03T07:30:44.212Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://yoursite.com/2017/03/08/Repaint-and-Reflow/"/>
     <id>http://yoursite.com/2017/03/08/Repaint-and-Reflow/</id>
     <published>2017-03-08T03:15:51.000Z</published>
-    <updated>2017-05-03T07:17:30.458Z</updated>
+    <updated>2017-05-03T07:30:44.212Z</updated>
     
     <content type="html"><![CDATA[<h1 id="Reflow和Repaint的基本认识"><a href="#Reflow和Repaint的基本认识" class="headerlink" title="Reflow和Repaint的基本认识"></a>Reflow和Repaint的基本认识</h1><p>重绘(repaints)是一个元素外观的改变所触发的浏览器行为，例如改变vidibility，color等，重绘并不一定会导致回流</p>
 <p>回流(reflow) 指的就是浏览器为了重新渲染部分或者全部文档而重新计算元素的位置和几何结构过程，就比如砍掉某节点元素或者改变位置或者大小也可能会造成父级元素以及子元素也产生回流</p>
@@ -43,7 +43,7 @@ top:10px;
 <p>4.操作dom可以先把dom节点删除或隐藏，隐藏的节点不会重排</p>
 <p>5.批量增加尽量使用innerhtml，多次添加的时候innerhtml要好过appendchild</p>
 <p>6.有些浏览器会对重排做优化，比如等一个线程结束或足够数量的变化发生再进行处理。但浏览器为了得到某些属性值的正确性也会重排,这些属性有：offsetTop、offsetLeft、 offsetWidth、offsetHeight、scrollTop、scrollLeft、scrollWidth、scrollHeight、clientTop、clientLeft、clientWidth、clientHeight。所以多次使用应该使用缓存</p>
-<h3 id="css优化"><a href="#css优化" class="headerlink" title="css优化"></a>css优化</h3><p>多写类选择器，通配符不说了，还有那些什么div,span,a…{margin:0;padding:0},先看看user agent stylesheet吧，叠层也不要太复杂毕竟是从右往左</p>
+<h3 id="css优化"><a href="#css优化" class="headerlink" title="css优化"></a>css优化</h3><p>多写类选择器。通配符不说了，还有一些统统padding/margin：0，滥写css reset。选择器叠层也不要太复杂毕竟是从右往左找</p>
 <h2 id="后话："><a href="#后话：" class="headerlink" title="后话："></a>后话：</h2><p>dom操作肯定是不可避免的，框架本身也避免不了dom操作，只能把代价减低,类似react就是使用v-dom来对dom结构进行比较，修改部分节点，利用已有节点修改有新节点才创建。浏览器对于dom操作肯定会做优化的，合并批处理什么的</p>
 ]]></content>
     
