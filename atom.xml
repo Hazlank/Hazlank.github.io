@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-09-09T08:56:21.226Z</updated>
+  <updated>2017-09-09T09:16:28.179Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://yoursite.com/2017/09/09/prototype/"/>
     <id>http://yoursite.com/2017/09/09/prototype/</id>
     <published>2017-09-09T03:15:51.000Z</published>
-    <updated>2017-09-09T08:56:21.226Z</updated>
+    <updated>2017-09-09T09:16:28.179Z</updated>
     
     <content type="html"><![CDATA[<h1 id="原型，原型链，继承"><a href="#原型，原型链，继承" class="headerlink" title="原型，原型链，继承"></a>原型，原型链，继承</h1><p>最近在看js高级程序设计，以前对prototype不了解，重新看完书后得到了很多东西不止是原型这块知识点，还有一些细节点，写法上的性能优化、一些方法的处理机制，这里就不说明了。就来把自己所知道的原型来梳理一下吧  </p>
 <h2 id="一丶原型是什么"><a href="#一丶原型是什么" class="headerlink" title="一丶原型是什么"></a>一丶原型是什么</h2><ul>
@@ -84,7 +84,7 @@ console.log(sub2.o.a)//1
 </pre>
 
 <p>当我们实例化子类的时候，执行一遍父类的函数，利用call函数更改为子类的作用域，那么在this添加属性的时候就会对子类的实例化对象添加属性了，这样创建的实例就会有单独拥有一份属性了，而不会共用，<br>但是这就违背了方法复用的原则。</p>
-<h3 id="3-组合继承"><a href="#3-组合继承" class="headerlink" title="3.组合继承"></a>3.组合继承</h3><p>所以结合前两种模式的优点，就有了组合继承。</p>
+<h3 id="3-组合继承"><a href="#3-组合继承" class="headerlink" title="3.组合继承"></a>3.组合继承</h3><p>所以结合前两种模式的优点，就有了组合继承。<br><a id="more"></a></p>
 <pre>
 function SuperClass(type){
   this.val=type;
@@ -117,7 +117,7 @@ SubClass.prototype=inheritObject(SuperClass.prototype);
 </pre>
 
 <p>因为F类构造函数没有内容，所以更纯净，开销更小。所以人们会借用这种方式来实现对prototype的继承</p>
-<h2 id="二丶原型链"><a href="#二丶原型链" class="headerlink" title="二丶原型链"></a>二丶原型链</h2><p>原型链我并没有过多的了解，也就只是一个概念吧，对象进行搜索属性的概念。<br>对象在查找属性的时候会依次往下搜寻，从构造函数的属性开始往下找，所以为什么当我们在构造函数和prototype的key相同时，输出的是构造函数的值。如果没有，就往__proto_<em>找，如果有继承了父类，继续往实例的\</em>_proto__.__proto__(父类的实例)寻找我们需要的属性，直到Object.prototype.__proto__(null)。</p>
+<h2 id="二丶原型链"><a href="#二丶原型链" class="headerlink" title="二丶原型链"></a>二丶原型链</h2><p>原型链我并没有过多的了解，也就只是一个概念吧，对象进行搜索属性的概念。<br>对象在查找属性的时候会依次往下搜寻，从构造函数的属性开始往下找，所以为什么当我们在构造函数和prototype的key相同时，输出的是构造函数的值。如果没有，就往__proto__找，如果有继承了父类，继续往实例的__proto__.__proto__(父类的实例)寻找我们需要的属性，直到Object.prototype.__proto__(null)。</p>
 <h2 id="tips"><a href="#tips" class="headerlink" title="tips"></a>tips</h2><ul>
 <li>我们在通过点(.)寻找对象属性时能也能看到一些实例化对象后Object共有的方法toString，valueOf啊,这些就是原型链的概念了也就是Object.prototype的方法。他们能访问到，但是不能被枚举出来，所以和普通的对象使用点(.)添加属性不一样，应该是比较底层的方法定义出来的。es5有个方法Object.defineProperty可以对对象的属性定义更多的操作，列如可否枚举，是否能够被修改，还有强大的getter，setter方法能够被现流行的框架用于实现数据绑定。</li>
 <li><p>对于上面原型式继承，为了规范，出现了一个新的方法Object.create，这和原型式的实现是一样的，可以看看MDN官方文档对于低版本浏览器给出的polyfill</p>
@@ -143,7 +143,69 @@ if (typeof Object.create !== "function") {
     
     <summary type="html">
     
-      &lt;h1 id=&quot;原型，原型链，继承&quot;&gt;&lt;a href=&quot;#原型，原型链，继承&quot; class=&quot;headerlink&quot; title=&quot;原型，原型链，继承&quot;&gt;&lt;/a&gt;原型，原型链，继承&lt;/h1&gt;&lt;p&gt;最近在看js高级程序设计，以前对prototype不了解，重新看完书后得到了很多东西
+      &lt;h1 id=&quot;原型，原型链，继承&quot;&gt;&lt;a href=&quot;#原型，原型链，继承&quot; class=&quot;headerlink&quot; title=&quot;原型，原型链，继承&quot;&gt;&lt;/a&gt;原型，原型链，继承&lt;/h1&gt;&lt;p&gt;最近在看js高级程序设计，以前对prototype不了解，重新看完书后得到了很多东西不止是原型这块知识点，还有一些细节点，写法上的性能优化、一些方法的处理机制，这里就不说明了。就来把自己所知道的原型来梳理一下吧  &lt;/p&gt;
+&lt;h2 id=&quot;一丶原型是什么&quot;&gt;&lt;a href=&quot;#一丶原型是什么&quot; class=&quot;headerlink&quot; title=&quot;一丶原型是什么&quot;&gt;&lt;/a&gt;一丶原型是什么&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;在js里，万物皆对象，Function也是对象，在使用字面量创建基本类型的时候也会实例化成一个对象。  我们在创建对象的时候可以看到，对象里会有一个属性__proto__，可称为隐式原型。  &lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;在函数(Function)这个对象中，还有一个特有的属性，prototype(显式原型)。函数的prototype是一个指针，指向一个对象。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;
+function a(){};
+a.prototype={};
+new a().__proto__ === a.prototype; //true
+&lt;/pre&gt;
+
+&lt;p&gt;这里就能知道一个对象的隐式原型指向和构造该对象的构造函数的原型的指向是一样的，这样就保证了能够访问到构造函数原型时定义的方法了。在对象__proto__属性里能看到里面有许多的方法还有一个属性constructor，指向我们的构造函数。  &lt;/p&gt;
+&lt;h2 id=&quot;二丶继承&quot;&gt;&lt;a href=&quot;#二丶继承&quot; class=&quot;headerlink&quot; title=&quot;二丶继承&quot;&gt;&lt;/a&gt;二丶继承&lt;/h2&gt;&lt;p&gt;js没有现有的继承的机制，但是可以通过其他的方式来实现继承，比如常见的类式继承，利用原型的特性实现继承&lt;/p&gt;
+&lt;h3 id=&quot;1-类式继承&quot;&gt;&lt;a href=&quot;#1-类式继承&quot; class=&quot;headerlink&quot; title=&quot;1.类式继承&quot;&gt;&lt;/a&gt;1.类式继承&lt;/h3&gt;&lt;pre&gt;
+function SuperClass(){
+  this.val=true    
+};
+SuperClass.prototype.getVal=function(){
+  console.log(this.val)
+}
+SuperClass.prototype.o={
+  a:1
+}
+
+function SubClass(){
+  this.val=false
+}
+
+SubClass.prototype=new SuperClass();
+SubClass.prototype.constructor=SubClass;
+var sub1=new SubClass();
+sub1.getVal(); //false;
+sub1.o.a=2;
+
+console.log(new SubClass().o.a)//2
+&lt;/pre&gt;
+
+&lt;p&gt;类的原型对象的作用就是为类的原型添加共有方法。当子类的原型对象指向实例化一个父类的时候，再去实例化这个子类的时候，实例化后的对象里的__proto__就是我们父类的prototype对象，所以就能够访问到父类原型对象的方法和构造属性了。&lt;br&gt;但是有个缺点，因为prototype是指向对象，对象和基本值不一样，是引用，所以我们更改其中的属性也就是相当于更改父类的属性，就会相互影响。&lt;br&gt;当然也可以通过父类的原型对象for-in循环复制到子类里，只要加上hasownproperty的判断就好啦。&lt;/p&gt;
+&lt;h3 id=&quot;2-构造函数继承&quot;&gt;&lt;a href=&quot;#2-构造函数继承&quot; class=&quot;headerlink&quot; title=&quot;2.构造函数继承&quot;&gt;&lt;/a&gt;2.构造函数继承&lt;/h3&gt;&lt;p&gt;js是灵活的，我们可以使用其他继承方式来解决引用问题，比如常见的构造函数继承&lt;/p&gt;
+&lt;pre&gt;
+function SuperClass(){
+  this.val=true;
+  this.o={
+    a:1    
+ }
+};
+
+function SubClass(){
+  SuperClass.call(this)
+}
+
+var sub1=new SubClass();
+sub1.val//true
+sub1.o.a=2
+
+var sub2=new SubClass();
+console.log(sub2.o.a)//1
+&lt;/pre&gt;
+
+&lt;p&gt;当我们实例化子类的时候，执行一遍父类的函数，利用call函数更改为子类的作用域，那么在this添加属性的时候就会对子类的实例化对象添加属性了，这样创建的实例就会有单独拥有一份属性了，而不会共用，&lt;br&gt;但是这就违背了方法复用的原则。&lt;/p&gt;
+&lt;h3 id=&quot;3-组合继承&quot;&gt;&lt;a href=&quot;#3-组合继承&quot; class=&quot;headerlink&quot; title=&quot;3.组合继承&quot;&gt;&lt;/a&gt;3.组合继承&lt;/h3&gt;&lt;p&gt;所以结合前两种模式的优点，就有了组合继承。&lt;br&gt;
     
     </summary>
     

@@ -214,62 +214,10 @@ console.log(sub2.o.a)//1
 </pre>
 
 <p>当我们实例化子类的时候，执行一遍父类的函数，利用call函数更改为子类的作用域，那么在this添加属性的时候就会对子类的实例化对象添加属性了，这样创建的实例就会有单独拥有一份属性了，而不会共用，<br>但是这就违背了方法复用的原则。</p>
-<h3 id="3-组合继承"><a href="#3-组合继承" class="headerlink" title="3.组合继承"></a>3.组合继承</h3><p>所以结合前两种模式的优点，就有了组合继承。</p>
-<pre>
-function SuperClass(type){
-  this.val=type;
-  this.o={
-    a:1    
- }
-};
-
-SuperClass.prototype.getVal=function(){
-  console.log(this.val)
-}
-
-function SubClass(type){
-  SuperClass.call(this,type)
-}
-
-SubClass.prototype=new SuperClass();
-</pre>
-
-<p>这样就能共用方法和享有自己的副本了，但是还是有点瑕疵，为什么呢？因为构造函数被调用了两次，这样会多出来一个副本，这样不清真，也不完美。</p>
-<h3 id="4-原形式继承"><a href="#4-原形式继承" class="headerlink" title="4.原形式继承"></a>4.原形式继承</h3><p>后来，有个dalao提出一句话，书上有翻译，但是没看懂，就不打了，直接上代码</p>
-<pre>
-function inheritObject(o){
-  fucntion F(){}
-  F.prototype=o;
-  return new F();
-}
-
-SubClass.prototype=inheritObject(SuperClass.prototype);
-</pre>
-
-<p>因为F类构造函数没有内容，所以更纯净，开销更小。所以人们会借用这种方式来实现对prototype的继承</p>
-<h2 id="二丶原型链"><a href="#二丶原型链" class="headerlink" title="二丶原型链"></a>二丶原型链</h2><p>原型链我并没有过多的了解，也就只是一个概念吧，对象进行搜索属性的概念。<br>对象在查找属性的时候会依次往下搜寻，从构造函数的属性开始往下找，所以为什么当我们在构造函数和prototype的key相同时，输出的是构造函数的值。如果没有，就往__proto_<em>找，如果有继承了父类，继续往实例的\</em>_proto__.__proto__(父类的实例)寻找我们需要的属性，直到Object.prototype.__proto__(null)。</p>
-<h2 id="tips"><a href="#tips" class="headerlink" title="tips"></a>tips</h2><ul>
-<li>我们在通过点(.)寻找对象属性时能也能看到一些实例化对象后Object共有的方法toString，valueOf啊,这些就是原型链的概念了也就是Object.prototype的方法。他们能访问到，但是不能被枚举出来，所以和普通的对象使用点(.)添加属性不一样，应该是比较底层的方法定义出来的。es5有个方法Object.defineProperty可以对对象的属性定义更多的操作，列如可否枚举，是否能够被修改，还有强大的getter，setter方法能够被现流行的框架用于实现数据绑定。</li>
-<li><p>对于上面原型式继承，为了规范，出现了一个新的方法Object.create，这和原型式的实现是一样的，可以看看MDN官方文档对于低版本浏览器给出的polyfill</p>
-<pre>
-if (typeof Object.create !== "function") {
-  Object.create = function (proto, propertiesObject) {
-      if (!(proto === null || typeof proto === "object" || typeof proto === "function")) {
-          throw TypeError('Argument must be an object, or null');
-      }
-      var temp = new Object();
-      temp.__proto__ = proto;
-      if(typeof propertiesObject ==="object")
-          Object.defineProperties(temp,propertiesObject);
-      return temp;
-  };
-}
-</pre>
-</li>
-<li><p>对象拷贝，Object.assgin能实现多继承的概念，并且也是深拷贝，但是只能也只能达到一级的深拷贝。JSON.parse(JSON.stringify(obj))能实现到深拷贝。但是两者都不会把__proto__复制到新对象里</p>
-</li>
-</ul>
-
+<h3 id="3-组合继承"><a href="#3-组合继承" class="headerlink" title="3.组合继承"></a>3.组合继承</h3><p>所以结合前两种模式的优点，就有了组合继承。<br>
+        <p class="article-more-link">
+          <a class="article-more-a"  href="/2017/09/09/prototype/#more">more >></a>
+        </p>
       
     </div>
     <div class="article-info article-info-index">
