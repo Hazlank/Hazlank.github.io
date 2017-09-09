@@ -6,17 +6,24 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Hazlank blog</title>
+  <title>prototype | Hazlank blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="���˲���">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Hazlank blog">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="原型，原型链，继承最近在看js高级程序设计，以前对prototype不了解，重新看完书后得到了很多东西不止是原型这块知识点，还有一些细节点，写法上的性能优化、一些方法的处理机制，这里就不说明了。就来把自己所知道的原型来梳理一下吧  
+一丶原型是什么
+在js里，万物皆对象，Function也是对象，在使用字面量创建基本类型的时候也会实例化成一个对象。  我们在创建对象的时候可以看到，对象里会有一个属">
+<meta property="og:type" content="article">
+<meta property="og:title" content="prototype">
+<meta property="og:url" content="http://yoursite.com/2017/09/09/prototype/index.html">
 <meta property="og:site_name" content="Hazlank blog">
-<meta property="og:description" content="���˲���">
+<meta property="og:description" content="原型，原型链，继承最近在看js高级程序设计，以前对prototype不了解，重新看完书后得到了很多东西不止是原型这块知识点，还有一些细节点，写法上的性能优化、一些方法的处理机制，这里就不说明了。就来把自己所知道的原型来梳理一下吧  
+一丶原型是什么
+在js里，万物皆对象，Function也是对象，在使用字面量创建基本类型的时候也会实例化成一个对象。  我们在创建对象的时候可以看到，对象里会有一个属">
+<meta property="og:updated_time" content="2017-09-09T07:20:53.401Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hazlank blog">
-<meta name="twitter:description" content="���˲���">
+<meta name="twitter:title" content="prototype">
+<meta name="twitter:description" content="原型，原型链，继承最近在看js高级程序设计，以前对prototype不了解，重新看完书后得到了很多东西不止是原型这块知识点，还有一些细节点，写法上的性能优化、一些方法的处理机制，这里就不说明了。就来把自己所知道的原型来梳理一下吧  
+一丶原型是什么
+在js里，万物皆对象，Function也是对象，在使用字面量创建基本类型的时候也会实例化成一个对象。  我们在创建对象的时候可以看到，对象里会有一个属">
   
     <link rel="alternative" href="/atom.xml" title="Hazlank blog" type="application/atom+xml">
   
@@ -132,9 +139,7 @@
 </nav>
 
       <div class="body-wrap">
-        
-  
-    <article id="post-prototype" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-prototype" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <input type="hidden" class="isFancy" />
@@ -143,8 +148,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/09/09/prototype/">prototype</a>
+    <h1 class="article-title" itemprop="name">
+      prototype
     </h1>
   
 
@@ -225,204 +230,65 @@ if (typeof Object.create !== "function") {
   </div>
 </article>
 
-
-
-
-
-
-
-
-
-
   
-    <article id="post-Repaint-and-Reflow" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/08/Repaint-and-Reflow/">Repaint-and-Reflow</a>
-    </h1>
   
+    <a href="/2017/03/08/Repaint-and-Reflow/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Repaint-and-Reflow</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Reflow和Repaint的基本认识"><a href="#Reflow和Repaint的基本认识" class="headerlink" title="Reflow和Repaint的基本认识"></a>Reflow和Repaint的基本认识</h1><p>重绘(repaints)是一个元素外观的改变所触发的浏览器行为，例如改变vidibility，color等，重绘并不一定会导致回流</p>
-<p>回流(reflow) 指的就是浏览器为了重新渲染部分或者全部文档而重新计算元素的位置和几何结构过程，就比如砍掉某节点元素或者改变位置或者大小也可能会造成父级元素以及子元素也产生回流</p>
-<p>重绘的代价是高昂的，因为浏览器必须验证DOM树上其他节点元素的可见性，回流更是性能的关键，某一块元素的变化可能会造成部分区域或者整个页面的布局发生变化</p>
-<p>所以我们在写js或者css的时候需要尽量把回流对性能的影响降到最低 </p>
-<h3 id="dom优化"><a href="#dom优化" class="headerlink" title="dom优化"></a>dom优化</h3><p>1.在修改元素样式的时候，通过修改classname名获取样式，也就是多次dom修改合并成一次  </p>
-<pre>dom.style.color='#cccccc';
-dom.style.top='10px';
 
-////
 
-dom.className='m';
-.m{
-color:#cccccc;
-top:10px;
-} </pre>
 
-<p>我们会用dom碎片进行组合再添加到整个dom上，因为这样仅导致一个回流。所以，style属性设置也一样会导致回流，避免设置多级内联样式。当元素获取外部类的样式时只会产生一次回流。</p>
-<p>2.动画效果的position值为fixed或者absolute<br>动画效果在移动过程不会影响其他元素布局，不会导致其他元素的回流<br>
-        <p class="article-more-link">
-          <a class="article-more-a"  href="/2017/03/08/Repaint-and-Reflow/#more">more >></a>
-        </p>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      <a href="/2017/03/08/Repaint-and-Reflow/" class="archive-article-date">
-  	<time datetime="2017-03-08T03:15:51.000Z" itemprop="datePublished"><i class="icon-clock"></i>2017-03-08</time>
-</a>
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/优化/">优化</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">Share to: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+	    <a class="jiathis_button_twitter"></a>
+	    <a class="jiathis_button_plus"></a> 
+	    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
 	</div>
-
-      
-
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
+	<script type="text/javascript" src="//v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
 
 
 
 
 
 
+<div class="duoshuo" >
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="prototype" data-title="prototype" data-url="http://yoursite.com/2017/09/09/prototype/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+
+	var duoshuoQuery = {short_name:"hazlank"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
 
 
 
-
-  
-    <article id="post-numerical-system" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/12/14/numerical-system/">数制</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="数制"><a href="#数制" class="headerlink" title="数制"></a>数制</h1><p>数制是用一组固定的数宇和一套统一的规则来表示数的方祛。数值的计算一般都是近位计算。按照进位的规则进行计数的数制，称为进位计数制。常见的进位计数制有二进制，八进制，十六进制，十进制就是我们生活当中通用的数制，满十进一</p>
-<p><strong>进位计数制有两个基本要素：基数和权。</strong></p>
-<h4 id="基数"><a href="#基数" class="headerlink" title="基数"></a>基数</h4><p>基数是指某进位计数制中允许使用的数字的个数。</p>
-<ul>
-<li>二进制基数就是2，八进制基数就是8</li>
-<li>大于10的基数当单个数字超过9的时候会用其他符号表示，例如在十六进制中10用a表示，直到F(15)</li>
-</ul>
-<h4 id="权"><a href="#权" class="headerlink" title="权"></a>权</h4><p>以基数为底，以某一数字所在位置的序号为指数的幂，称为该数字在该位置的权。</p>
-<p>以十进制数123.45来说每个数字的权都不同</p>
-<ul>
-<li>小数点从左往右边的权分别为10(基数)^0，10^1，10^2</li>
-<li>小数点从左往右边的权分别为10^-1，10^-2</li>
-</ul>
-<h1 id="数制计算方法"><a href="#数制计算方法" class="headerlink" title="数制计算方法"></a>数制计算方法</h1><p>在c语言中，为了表示一个数字为八进制，会在其加个前缀0，比如050就表示42，前缀0X代表十六进制数字<br>
-        <p class="article-more-link">
-          <a class="article-more-a"  href="/2016/12/14/numerical-system/#more">more >></a>
-        </p>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      <a href="/2016/12/14/numerical-system/" class="archive-article-date">
-  	<time datetime="2016-12-14T02:38:16.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-12-14</time>
-</a>
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数值/">数值</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/计算机原理/">计算机原理</a></li></ul>
-	</div>
-
-      
-
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-character-encoding" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/11/28/character-encoding/">字符编码</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="字符编码"><a href="#字符编码" class="headerlink" title="字符编码"></a>字符编码</h2><h3 id="ASCII码"><a href="#ASCII码" class="headerlink" title="ASCII码"></a>ASCII码</h3><p>在计算机内部，所有的信息最终都表示为一个二进制的字符串。每一个二进制位（bit）有0和1两种状态，因此八个二进制位就可以组合出256种状态，这被称为一个字节（byte）。也就是说，一个字节一共可以用来表示256种不同的状态，每一个状态对应一个符号，就是256个符号，从0000000到11111111。</p>
-<h3 id="Unicode"><a href="#Unicode" class="headerlink" title="Unicode"></a>Unicode</h3><p>世界上存在着多种编码方式，同一个二进制数字可以被解释成不同的符号。因此，要想打开一个文本文件，就必须知道它的编码方式，否则用错误的编码方式解读，就会出现乱码。为什么电子邮件常常出现乱码？就是因为发信人和收信人使用的编码方式不一样。<br>
-        <p class="article-more-link">
-          <a class="article-more-a"  href="/2016/11/28/character-encoding/#more">more >></a>
-        </p>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      <a href="/2016/11/28/character-encoding/" class="archive-article-date">
-  	<time datetime="2016-11-28T05:56:21.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-11-28</time>
-</a>
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/字符编码/">字符编码</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/计算机原理/">计算机原理</a></li></ul>
-	</div>
-
-      
-
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-
-
-  
-  
 
 
       </div>
@@ -444,8 +310,8 @@ top:10px;
 		fancybox: true,
 		mathjax: false,
 		animate: true,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
