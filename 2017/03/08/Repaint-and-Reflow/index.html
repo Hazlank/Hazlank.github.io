@@ -6,21 +6,21 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Repaint-and-Reflow | Hazlank blog</title>
+  <title>回流与重绘 | Hazlank blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="Reflow和Repaint的基本认识重绘(repaints)是一个元素外观的改变所触发的浏览器行为，例如改变vidibility，color等，重绘并不一定会导致回流
 回流(reflow) 指的就是浏览器为了重新渲染部分或者全部文档而重新计算元素的位置和几何结构过程，就比如砍掉某节点元素或者改变位置或者大小也可能会造成父级元素以及子元素也产生回流
 重绘的代价是高昂的，因为浏览器必须验证DOM树上">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Repaint-and-Reflow">
+<meta property="og:title" content="回流与重绘">
 <meta property="og:url" content="http://yoursite.com/2017/03/08/Repaint-and-Reflow/index.html">
 <meta property="og:site_name" content="Hazlank blog">
 <meta property="og:description" content="Reflow和Repaint的基本认识重绘(repaints)是一个元素外观的改变所触发的浏览器行为，例如改变vidibility，color等，重绘并不一定会导致回流
 回流(reflow) 指的就是浏览器为了重新渲染部分或者全部文档而重新计算元素的位置和几何结构过程，就比如砍掉某节点元素或者改变位置或者大小也可能会造成父级元素以及子元素也产生回流
 重绘的代价是高昂的，因为浏览器必须验证DOM树上">
-<meta property="og:updated_time" content="2017-09-09T03:01:29.599Z">
+<meta property="og:updated_time" content="2017-09-09T08:56:48.665Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Repaint-and-Reflow">
+<meta name="twitter:title" content="回流与重绘">
 <meta name="twitter:description" content="Reflow和Repaint的基本认识重绘(repaints)是一个元素外观的改变所触发的浏览器行为，例如改变vidibility，color等，重绘并不一定会导致回流
 回流(reflow) 指的就是浏览器为了重新渲染部分或者全部文档而重新计算元素的位置和几何结构过程，就比如砍掉某节点元素或者改变位置或者大小也可能会造成父级元素以及子元素也产生回流
 重绘的代价是高昂的，因为浏览器必须验证DOM树上">
@@ -149,7 +149,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Repaint-and-Reflow
+      回流与重绘
     </h1>
   
 
@@ -171,7 +171,7 @@ dom.className='m';
 .m{
 color:#cccccc;
 top:10px;
-} </pre>
+}</pre>
 
 <p>我们会用dom碎片进行组合再添加到整个dom上，因为这样仅导致一个回流。所以，style属性设置也一样会导致回流，避免设置多级内联样式。当元素获取外部类的样式时只会产生一次回流。</p>
 <p>2.动画效果的position值为fixed或者absolute<br>动画效果在移动过程不会影响其他元素布局，不会导致其他元素的回流<br><a id="more"></a><br>3.使用缓存，缓存临时节点，不要每次都去获取</p>
@@ -208,7 +208,7 @@ top:10px;
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          prototype
+          原型
         
       </div>
     </a>
@@ -249,7 +249,7 @@ top:10px;
 
 <div class="duoshuo" >
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="Repaint-and-Reflow" data-title="Repaint-and-Reflow" data-url="http://yoursite.com/2017/03/08/Repaint-and-Reflow/"></div>
+	<div class="ds-thread" data-thread-key="Repaint-and-Reflow" data-title="回流与重绘" data-url="http://yoursite.com/2017/03/08/Repaint-and-Reflow/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">

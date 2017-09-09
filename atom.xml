@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-09-09T07:20:53.401Z</updated>
+  <updated>2017-09-09T08:56:21.226Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -16,11 +16,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>prototype</title>
+    <title>原型</title>
     <link href="http://yoursite.com/2017/09/09/prototype/"/>
     <id>http://yoursite.com/2017/09/09/prototype/</id>
     <published>2017-09-09T03:15:51.000Z</published>
-    <updated>2017-09-09T07:20:53.401Z</updated>
+    <updated>2017-09-09T08:56:21.226Z</updated>
     
     <content type="html"><![CDATA[<h1 id="原型，原型链，继承"><a href="#原型，原型链，继承" class="headerlink" title="原型，原型链，继承"></a>原型，原型链，继承</h1><p>最近在看js高级程序设计，以前对prototype不了解，重新看完书后得到了很多东西不止是原型这块知识点，还有一些细节点，写法上的性能优化、一些方法的处理机制，这里就不说明了。就来把自己所知道的原型来梳理一下吧  </p>
 <h2 id="一丶原型是什么"><a href="#一丶原型是什么" class="headerlink" title="一丶原型是什么"></a>一丶原型是什么</h2><ul>
@@ -37,28 +37,91 @@ new a().__proto__ === a.prototype; //true
 
 <p>这里就能知道一个对象的隐式原型指向和构造该对象的构造函数的原型的指向是一样的，这样就保证了能够访问到构造函数原型时定义的方法了。在对象__proto__属性里能看到里面有许多的方法还有一个属性constructor，指向我们的构造函数。  </p>
 <h2 id="二丶继承"><a href="#二丶继承" class="headerlink" title="二丶继承"></a>二丶继承</h2><p>js没有现有的继承的机制，但是可以通过其他的方式来实现继承，比如常见的类式继承，利用原型的特性实现继承</p>
-<p>###1.类式继承</p>
-<p><pre><br>function SuperClass(){<br>  this.val=true<br>};<br>SuperClass.prototype.getVal=function(){<br>  console.log(this.val)<br>}<br>SuperClass.prototype.o={<br>  a:1<br>}</pre></p>
-<p>function SubClass(){<br>  this.val=false<br>}</p>
-<p>SubClass.prototype=new SuperClass();<br>SubClass.prototype.constructor=SubClass;<br>var sub1=new SubClass();<br>sub1.getVal(); //false;<br>sub1.o.a=2;</p>
-<p>console.log(new SubClass().o.a)//2<br><br>类的原型对象的作用就是为类的原型添加共有方法。当子类的原型对象指向实例化一个父类的时候，再去实例化这个子类的时候，实例化后的对象里的__proto__就是我们父类的prototype对象，所以就能够访问到父类原型对象的方法和构造属性了。<br>但是有个缺点，因为prototype是指向对象，对象和基本值不一样，是引用，所以我们更改其中的属性也就是相当于更改父类的属性，就会相互影响。<br>当然也可以通过父类的原型对象for-in循环复制到子类里，只要加上hasownproperty的判断就好啦。</p>
+<h3 id="1-类式继承"><a href="#1-类式继承" class="headerlink" title="1.类式继承"></a>1.类式继承</h3><pre>
+function SuperClass(){
+  this.val=true    
+};
+SuperClass.prototype.getVal=function(){
+  console.log(this.val)
+}
+SuperClass.prototype.o={
+  a:1
+}
+
+function SubClass(){
+  this.val=false
+}
+
+SubClass.prototype=new SuperClass();
+SubClass.prototype.constructor=SubClass;
+var sub1=new SubClass();
+sub1.getVal(); //false;
+sub1.o.a=2;
+
+console.log(new SubClass().o.a)//2
+</pre>
+
+<p>类的原型对象的作用就是为类的原型添加共有方法。当子类的原型对象指向实例化一个父类的时候，再去实例化这个子类的时候，实例化后的对象里的__proto__就是我们父类的prototype对象，所以就能够访问到父类原型对象的方法和构造属性了。<br>但是有个缺点，因为prototype是指向对象，对象和基本值不一样，是引用，所以我们更改其中的属性也就是相当于更改父类的属性，就会相互影响。<br>当然也可以通过父类的原型对象for-in循环复制到子类里，只要加上hasownproperty的判断就好啦。</p>
 <h3 id="2-构造函数继承"><a href="#2-构造函数继承" class="headerlink" title="2.构造函数继承"></a>2.构造函数继承</h3><p>js是灵活的，我们可以使用其他继承方式来解决引用问题，比如常见的构造函数继承</p>
-<p><pre><br>function SuperClass(){<br>  this.val=true;<br>  this.o={<br>    a:1<br> }<br>};</pre></p>
-<p>function SubClass(){<br>  SuperClass.call(this)<br>}</p>
-<p>var sub1=new SubClass();<br>sub1.val//true;<br>sub1.o.a=2</p>
-<p>var sub2=new SubClass();<br>console.log(sub2.o.a)//1<br><br>当我们实例化子类的时候，执行一遍父类的函数，利用call函数更改为子类的作用域，那么在this添加属性的时候就会对子类的实例化对象添加属性了，这样创建的实例就会有单独拥有一份属性了，而不会共用，<br>但是这就违背了方法复用的原则。</p>
+<pre>
+function SuperClass(){
+  this.val=true;
+  this.o={
+    a:1    
+ }
+};
+
+function SubClass(){
+  SuperClass.call(this)
+}
+
+var sub1=new SubClass();
+sub1.val//true
+sub1.o.a=2
+
+var sub2=new SubClass();
+console.log(sub2.o.a)//1
+</pre>
+
+<p>当我们实例化子类的时候，执行一遍父类的函数，利用call函数更改为子类的作用域，那么在this添加属性的时候就会对子类的实例化对象添加属性了，这样创建的实例就会有单独拥有一份属性了，而不会共用，<br>但是这就违背了方法复用的原则。</p>
 <h3 id="3-组合继承"><a href="#3-组合继承" class="headerlink" title="3.组合继承"></a>3.组合继承</h3><p>所以结合前两种模式的优点，就有了组合继承。</p>
-<p><pre><br>function SuperClass(type){<br>  this.val=type;<br>  this.o={<br>    a:1<br> }<br>};</pre></p>
-<p>SuperClass.prototype.getVal=function(){<br>  console.log(this.val)<br>}</p>
-<p>function SubClass(type){<br>  SuperClass.call(this,type)<br>}</p>
-<p>SubClass.prototype=new SuperClass();<br><br>这样就能共用方法和享有自己的副本了，但是还是有点瑕疵，为什么呢？因为构造函数被调用了两次，这样会多出来一个副本，这样不清真，也不完美。</p>
+<pre>
+function SuperClass(type){
+  this.val=type;
+  this.o={
+    a:1    
+ }
+};
+
+SuperClass.prototype.getVal=function(){
+  console.log(this.val)
+}
+
+function SubClass(type){
+  SuperClass.call(this,type)
+}
+
+SubClass.prototype=new SuperClass();
+</pre>
+
+<p>这样就能共用方法和享有自己的副本了，但是还是有点瑕疵，为什么呢？因为构造函数被调用了两次，这样会多出来一个副本，这样不清真，也不完美。</p>
 <h3 id="4-原形式继承"><a href="#4-原形式继承" class="headerlink" title="4.原形式继承"></a>4.原形式继承</h3><p>后来，有个dalao提出一句话，书上有翻译，但是没看懂，就不打了，直接上代码</p>
-<p><pre><br>function inheritObject(o){<br>  fucntion F(){}<br>  F.prototype=o;<br>  return new F();<br>}</pre></p>
-<p>SubClass.prototype=inheritObject(SuperClass.prototype);<br><br>因为F类构造函数没有内容，所以更纯净，开销更小。所以人们会借用这种方式来实现对prototype的继承</p>
+<pre>
+function inheritObject(o){
+  fucntion F(){}
+  F.prototype=o;
+  return new F();
+}
+
+SubClass.prototype=inheritObject(SuperClass.prototype);
+</pre>
+
+<p>因为F类构造函数没有内容，所以更纯净，开销更小。所以人们会借用这种方式来实现对prototype的继承</p>
 <h2 id="二丶原型链"><a href="#二丶原型链" class="headerlink" title="二丶原型链"></a>二丶原型链</h2><p>原型链我并没有过多的了解，也就只是一个概念吧，对象进行搜索属性的概念。<br>对象在查找属性的时候会依次往下搜寻，从构造函数的属性开始往下找，所以为什么当我们在构造函数和prototype的key相同时，输出的是构造函数的值。如果没有，就往__proto_<em>找，如果有继承了父类，继续往实例的\</em>_proto__.__proto__(父类的实例)寻找我们需要的属性，直到Object.prototype.__proto__(null)。</p>
 <h2 id="tips"><a href="#tips" class="headerlink" title="tips"></a>tips</h2><ul>
 <li>我们在通过点(.)寻找对象属性时能也能看到一些实例化对象后Object共有的方法toString，valueOf啊,这些就是原型链的概念了也就是Object.prototype的方法。他们能访问到，但是不能被枚举出来，所以和普通的对象使用点(.)添加属性不一样，应该是比较底层的方法定义出来的。es5有个方法Object.defineProperty可以对对象的属性定义更多的操作，列如可否枚举，是否能够被修改，还有强大的getter，setter方法能够被现流行的框架用于实现数据绑定。</li>
-<li>对于上面原型式继承，为了规范，出现了一个新的方法Object.create，这和原型式的实现是一样的，可以看看MDN官方文档对于低版本浏览器给出的polyfill<pre>
+<li><p>对于上面原型式继承，为了规范，出现了一个新的方法Object.create，这和原型式的实现是一样的，可以看看MDN官方文档对于低版本浏览器给出的polyfill</p>
+<pre>
 if (typeof Object.create !== "function") {
   Object.create = function (proto, propertiesObject) {
       if (!(proto === null || typeof proto === "object" || typeof proto === "function")) {
@@ -71,8 +134,10 @@ if (typeof Object.create !== "function") {
       return temp;
   };
 }
-</pre></li>
-<li>对象拷贝，Object.assgin能实现多继承的概念，并且也是深拷贝，但是只能也只能达到一级的深拷贝。JSON.parse(JSON.stringify(obj))能实现到深拷贝。但是两者都不会把__proto__复制到新对象里</li>
+</pre>
+</li>
+<li><p>对象拷贝，Object.assgin能实现多继承的概念，并且也是深拷贝，但是只能也只能达到一级的深拷贝。JSON.parse(JSON.stringify(obj))能实现到深拷贝。但是两者都不会把__proto__复制到新对象里</p>
+</li>
 </ul>
 ]]></content>
     
@@ -88,11 +153,11 @@ if (typeof Object.create !== "function") {
   </entry>
   
   <entry>
-    <title>Repaint-and-Reflow</title>
+    <title>回流与重绘</title>
     <link href="http://yoursite.com/2017/03/08/Repaint-and-Reflow/"/>
     <id>http://yoursite.com/2017/03/08/Repaint-and-Reflow/</id>
     <published>2017-03-08T03:15:51.000Z</published>
-    <updated>2017-09-09T03:01:29.599Z</updated>
+    <updated>2017-09-09T08:56:48.665Z</updated>
     
     <content type="html"><![CDATA[<h1 id="Reflow和Repaint的基本认识"><a href="#Reflow和Repaint的基本认识" class="headerlink" title="Reflow和Repaint的基本认识"></a>Reflow和Repaint的基本认识</h1><p>重绘(repaints)是一个元素外观的改变所触发的浏览器行为，例如改变vidibility，color等，重绘并不一定会导致回流</p>
 <p>回流(reflow) 指的就是浏览器为了重新渲染部分或者全部文档而重新计算元素的位置和几何结构过程，就比如砍掉某节点元素或者改变位置或者大小也可能会造成父级元素以及子元素也产生回流</p>
@@ -108,7 +173,7 @@ dom.className='m';
 .m{
 color:#cccccc;
 top:10px;
-} </pre>
+}</pre>
 
 <p>我们会用dom碎片进行组合再添加到整个dom上，因为这样仅导致一个回流。所以，style属性设置也一样会导致回流，避免设置多级内联样式。当元素获取外部类的样式时只会产生一次回流。</p>
 <p>2.动画效果的position值为fixed或者absolute<br>动画效果在移动过程不会影响其他元素布局，不会导致其他元素的回流<br><a id="more"></a><br>3.使用缓存，缓存临时节点，不要每次都去获取</p>
@@ -135,7 +200,7 @@ dom.className=&#39;m&#39;;
 .m{
 color:#cccccc;
 top:10px;
-} &lt;/pre&gt;
+}&lt;/pre&gt;
 
 &lt;p&gt;我们会用dom碎片进行组合再添加到整个dom上，因为这样仅导致一个回流。所以，style属性设置也一样会导致回流，避免设置多级内联样式。当元素获取外部类的样式时只会产生一次回流。&lt;/p&gt;
 &lt;p&gt;2.动画效果的position值为fixed或者absolute&lt;br&gt;动画效果在移动过程不会影响其他元素布局，不会导致其他元素的回流&lt;br&gt;
@@ -206,9 +271,9 @@ top:10px;
     </summary>
     
     
-      <category term="数值" scheme="http://yoursite.com/tags/%E6%95%B0%E5%80%BC/"/>
-    
       <category term="计算机原理" scheme="http://yoursite.com/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8E%9F%E7%90%86/"/>
+    
+      <category term="数值" scheme="http://yoursite.com/tags/%E6%95%B0%E5%80%BC/"/>
     
   </entry>
   
