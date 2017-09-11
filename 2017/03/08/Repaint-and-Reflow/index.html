@@ -18,7 +18,7 @@
 <meta property="og:description" content="Reflow和Repaint的基本认识重绘(repaints)是一个元素外观的改变所触发的浏览器行为，例如改变vidibility，color等，重绘并不一定会导致回流
 回流(reflow) 指的就是浏览器为了重新渲染部分或者全部文档而重新计算元素的位置和几何结构过程，就比如砍掉某节点元素或者改变位置或者大小也可能会造成父级元素以及子元素也产生回流
 重绘的代价是高昂的，因为浏览器必须验证DOM树上">
-<meta property="og:updated_time" content="2017-09-09T08:56:48.665Z">
+<meta property="og:updated_time" content="2017-09-11T02:04:56.154Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="回流与重绘">
 <meta name="twitter:description" content="Reflow和Repaint的基本认识重绘(repaints)是一个元素外观的改变所触发的浏览器行为，例如改变vidibility，color等，重绘并不一定会导致回流
@@ -35,10 +35,11 @@
 
 </head>
 
-<body>
-  <div id="container">
-    <div class="left-col">
-      <div class="overlay"></div>
+
+  <body>
+    <div id="container">
+      <div class="left-col">
+        <div class="overlay"></div>
 <div class="intrude-less">
 	<header id="header" class="inner">
 		<a href="/" class="profilepic">
@@ -98,9 +99,9 @@
 	</header>		
 </div>
 
-    </div>
-    <div class="mid-col">
-      <nav id="mobile-nav">
+      </div>
+      <div class="mid-col">
+        <nav id="mobile-nav">
   	<div class="overlay">
   		<div class="slider-trigger"><i class="icon-list"></i></div>
   		<h1 class="header-author js-mobile-header hide">Hazlank</h1>
@@ -138,8 +139,8 @@
 	</div>
 </nav>
 
-      <div class="body-wrap">
-        <article id="post-Repaint-and-Reflow" class="article article-type-post" itemscope itemprop="blogPost">
+          <div class="body-wrap">
+            <article id="post-Repaint-and-Reflow" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <input type="hidden" class="isFancy" />
@@ -162,17 +163,17 @@
 <p>重绘的代价是高昂的，因为浏览器必须验证DOM树上其他节点元素的可见性，回流更是性能的关键，某一块元素的变化可能会造成部分区域或者整个页面的布局发生变化</p>
 <p>所以我们在写js或者css的时候需要尽量把回流对性能的影响降到最低 </p>
 <h3 id="dom优化"><a href="#dom优化" class="headerlink" title="dom优化"></a>dom优化</h3><p>1.在修改元素样式的时候，通过修改classname名获取样式，也就是多次dom修改合并成一次  </p>
-<pre>dom.style.color='#cccccc';
-dom.style.top='10px';
+<pre><code class="js">dom.style.color=&#39;#cccccc&#39;;
+dom.style.top=&#39;10px&#39;;
 
 ////
 
-dom.className='m';
+dom.className=&#39;m&#39;;
 .m{
 color:#cccccc;
 top:10px;
-}</pre>
-
+}
+</code></pre>
 <p>我们会用dom碎片进行组合再添加到整个dom上，因为这样仅导致一个回流。所以，style属性设置也一样会导致回流，避免设置多级内联样式。当元素获取外部类的样式时只会产生一次回流。</p>
 <p>2.动画效果的position值为fixed或者absolute<br>动画效果在移动过程不会影响其他元素布局，不会导致其他元素的回流<br><a id="more"></a><br>3.使用缓存，缓存临时节点，不要每次都去获取</p>
 <p>4.操作dom可以先把dom节点删除或隐藏，隐藏的节点不会重排</p>
@@ -271,8 +272,8 @@ top:10px;
 
 
 
-      </div>
-      <footer id="footer">
+          </div>
+          <footer id="footer">
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
@@ -284,8 +285,8 @@ top:10px;
     </div>
   </div>
 </footer>
-    </div>
-    <script>
+      </div>
+      <script>
 	var yiliaConfig = {
 		fancybox: true,
 		mathjax: false,
@@ -304,7 +305,7 @@ top:10px;
 <script src="/./main.js"></script>
 
 
-    
+        
 <div class="tools-col">
   <ul class="btn-wrap">
     
@@ -362,7 +363,7 @@ top:10px;
   </div>
   
 </div>
-    <!-- Root element of PhotoSwipe. Must have class pswp. -->
+          <!-- Root element of PhotoSwipe. Must have class pswp. -->
 <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
 
     <!-- Background of PhotoSwipe. 
@@ -428,6 +429,12 @@ top:10px;
     </div>
 
 </div>
-  </div>
-</body>
-</html>
+    </div>
+    <link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">
+    <script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>-->
+    <script>
+      hljs.initHighlightingOnLoad()
+    </script>
+  </body>
+
+  </html>
